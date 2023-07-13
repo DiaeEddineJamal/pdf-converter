@@ -19,7 +19,7 @@ def convert_docx_to_pdf(file):
 
 
 def convert_using_api(input_file, output_file, input_format, output_format):
-    api_key = "163163096"  # Replace with your ConvertAPI API key
+    api_key = "qrIpz7kJb0y2PXLW"  # Replace with your ConvertAPI API key
     url = f"https://v2.convertapi.com/convert/{input_format}/to/{output_format}"
     files = {"file": open(input_file, "rb")}
     payload = {"ApiKey": api_key}
