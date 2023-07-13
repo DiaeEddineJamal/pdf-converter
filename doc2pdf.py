@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 import tempfile
-from docx2pdf import convert
+import subprocess
 from pptx import Presentation
 import pdf2image
 from PIL import Image
@@ -14,8 +14,12 @@ def convert_docx_to_pdf(file):
         tmp.write(file.read())
         tmp.close()
         pdf_file = tmp.name.replace(".docx", ".pdf")
-        convert(tmp.name, pdf_file)
+        convert_using_unoconv(tmp.name, pdf_file)
         return pdf_file
+
+
+def convert_using_unoconv(input_file, output_file):
+    subprocess.run(["unoconv", "-f", "pdf", "-o", output_file, input_file])
 
 
 async def convert_pptx_to_pdf(file):
