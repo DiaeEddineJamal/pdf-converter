@@ -1,7 +1,7 @@
-streamlit==0.85.1
-python-docx==0.8.11
-docx2pdf==0.1.7
-python-pptx==0.6.19
-pdf2image==1.16.0
-Pillow==8.3.1
-pdfkit==0.6.2
+streamlit
+python-docx
+docx2pdf
+python-pptx
+pdf2image
+Pillow
+pdfkit
