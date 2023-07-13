@@ -3,9 +3,11 @@ langchain==0.0.229
 pdf2docx==0.5.6
 pdf2image==1.16.3
 pdfkit==1.0.0
-Pillow
+Pillow==10.0.0
 PyPDF2==3.0.1
 python-dotenv==1.0.0
 python_pptx==0.6.21
 Requests==2.31.0
 streamlit==1.24.1
+pdf2docx==0.5.6
+opencv-python-headless
