@@ -1,6 +1,7 @@
 import streamlit as st
 from docx import Document
 from docx2pdf import convert
+import io
 
 def convert_to_pdf(file):
     # Convert the document to a DOCX file in memory
