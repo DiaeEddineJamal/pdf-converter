@@ -1,10 +1,8 @@
 import streamlit as st
 import os
 import tempfile
-import requests
+from docx2pdf import convert
 from pptx import Presentation
-import pdf2image
-from PIL import Image
 import pdfkit
 import asyncio
 
@@ -14,19 +12,8 @@ def convert_docx_to_pdf(file):
         tmp.write(file.read())
         tmp.close()
         pdf_file = tmp.name.replace(".docx", ".pdf")
-        convert_using_api(tmp.name, pdf_file, "docx", "pdf")
+        convert(tmp.name, pdf_file)
         return pdf_file
-
-
-def convert_using_api(input_file, output_file, input_format, output_format):
-    api_key = "jEVLWxUE"  # Replace with your ConvertAPI API key
-    url = f"https://v2.convertapi.com/convert/{input_format}/to/{output_format}"
-    files = {"file": open(input_file, "rb")}
-    payload = {"ApiKey": api_key}
-    response = requests.post(url, files=files, data=payload)
-    response.raise_for_status()
-    with open(output_file, "wb") as output:
-        output.write(response.content)
 
 
 async def convert_pptx_to_pdf(file):
@@ -73,6 +60,7 @@ def main():
 
     # Upload the document file
     file = st.file_uploader("Upload a document file")
+
 
     with st.spinner("Converting..."):
         if file is not None:
