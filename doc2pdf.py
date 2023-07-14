@@ -1,18 +1,28 @@
 import streamlit as st
 from docx import Document
 from docx2pdf import convert
-import io
+import tempfile
+import os
 
 def convert_to_pdf(file):
-    # Convert the document to a DOCX file in memory
-    docx_file = file.name + ".docx"
+    # Convert the document to a DOCX file on disk
+    temp_dir = tempfile.mkdtemp()
+    docx_file = os.path.join(temp_dir, file.name + ".docx")
     document = Document(file)
-    docx_data = io.BytesIO()
-    document.save(docx_data)
-    docx_data.seek(0)
+    document.save(docx_file)
 
-    # Convert the DOCX file to PDF in memory
-    pdf_data = convert(docx_data)
+    # Convert the DOCX file to PDF
+    pdf_file = docx_file[:-5] + ".pdf"
+    convert(docx_file, pdf_file)
+
+    # Read the PDF file data
+    with open(pdf_file, "rb") as f:
+        pdf_data = f.read()
+
+    # Cleanup: remove temporary files
+    os.remove(docx_file)
+    os.remove(pdf_file)
+    os.rmdir(temp_dir)
 
     # Return the PDF file data
     return pdf_data
