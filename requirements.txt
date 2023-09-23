@@ -5,4 +5,4 @@ python-pptx
 pdf2image
 Pillow
 pdfkit
-pip install unoconv
+unoconv
