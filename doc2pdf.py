@@ -1,19 +1,20 @@
 import streamlit as st
-from docx import Document
-from docx2pdf import convert
 import tempfile
 import os
+import subprocess
 
 def convert_to_pdf(file):
-    # Convert the document to a DOCX file on disk
+    # Create a temporary directory
     temp_dir = tempfile.mkdtemp()
-    docx_file = os.path.join(temp_dir, file.name + ".docx")
-    document = Document(file)
-    document.save(docx_file)
 
-    # Convert the DOCX file to PDF
-    pdf_file = docx_file[:-5] + ".pdf"
-    convert(docx_file, pdf_file)
+    # Save the uploaded document to a temporary file
+    docx_file = os.path.join(temp_dir, file.name)
+    with open(docx_file, "wb") as f:
+        f.write(file.read())
+
+    # Convert the DOCX file to PDF using unoconv
+    pdf_file = docx_file.replace(".docx", ".pdf")
+    subprocess.run(["unoconv", "-f", "pdf", docx_file], check=True)
 
     # Read the PDF file data
     with open(pdf_file, "rb") as f:
